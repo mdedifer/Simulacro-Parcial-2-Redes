@@ -37,3 +37,9 @@ Normalmente no se utiliza inundación pura cada vez que se envía un mensaje. So
 
 
 ### 2. Cálculo de Direcciones de Broadcast y Subredes
+
+#### **a)**
+
+
+
+#### **b)**
