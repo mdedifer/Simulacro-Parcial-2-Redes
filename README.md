@@ -35,6 +35,8 @@ Este método es menos eficiente ya que genera mucho tráfico y usa muchos recurs
 Normalmente no se utiliza inundación pura cada vez que se envía un mensaje. Solamente se utiliza la primera vez que se envía un paquete desde un origen a un destino para averiguar cuál es el camino más corto. Esto se apuntaría en la tabla de enrutamiento, para que cuando aparezcan futuros paquetes con la misma ruta, el router ya sepa por dónde lo tiene que enviar.
 
 
+
+
 ### 2. Cálculo de Direcciones de Broadcast y Subredes
 
 #### **a)**
@@ -147,5 +149,54 @@ Y lo que nos piden en el problema:
 
 ### 4. Capacidad y Segmentación de Subredes
 
+#### **a)**
 
- 
+A través de la máscara de subred obtenermos el número de bits de red (fijos) (1s de la máscara).  
+255     = 11111111  
+255     = 11111111  
+255     = 11111111  
+192     = 11000000
+Hay 26 bits de red, por lo que sería una subred /26: 172.26.0.0/26. 
+Tendrá 32-26=6 bits de host (variables). Esto indica que la red tendrá 2^6=64 direcciones.  
+Siempre la primera dirección será la dirección de red y la última la dirección de broadcast. Esto implica que esta subred tendrá 62 direcciones disponibles (=número de equipos/hosts posibles).
+
+
+#### **b)**
+
+A través del prefijo de subred /23 obtenermos que el número de bits de red (fijos) (1s) es 23.  
+255     = 11111111  
+255     = 11111111  
+254     = 11111110  
+0       = 00000000  
+Hay 23 bits de red, por lo que tendrá 32-23=9 bits de host (variables). Esto indica que la red tendrá 2^9=512 direcciones.
+
+Pasamos la dirección ip a binario e identificamos los 23 bits fijos:  
+172     = 10101100  
+18      = 00010010  
+171     = 1010101|1  
+190     = 10111110  
+
+La dirección de red es la primera dirección, donde los bits de hosts (a partir del bit 23) son 0:
+
+
+172     = 10101100  
+18      = 00010010  
+170     = 1010101|0  
+0     = 00000000 
+
+Dirección de red: 172.18.170.0 .
+
+
+### 5. Número de Subredes Necesarias
+
+La fórmula: "Nº de subredes = 2^s" se explica fácilmente entendiendo el concepto de los bits de hosts. Los bits de hosts son los bits que identifican al host en una red. Son los bits de detrás del último bit de red, cuya posición viene indicada por el prefijo de la red.  
+Cada bit puede tomar 2 valores, 1 o 0 (al estar en binario) por lo que, cada vez que tomemos un bit de host (de la red padre) y lo consideremos parte del identificador de la subred, se duplicarán el número de subredes posible. Visto en un ejemplo más fácil:
+- 1 bit de host transformado en bit de red: 2¹ = 2 subredes
+- 2 bits de host transformado en bit de red: 2² = 4 subredes
+- 3 bits de host transformado en bit de red: 2³ = 8 subredes
+
+**Aplicación práctica con al menos 4 subredes**
+
+Utilizando la fórmula, vemos que para tener 4 subredes necesitamos 2 bits de hosts que pasen a ser parte del identificador de la subred (2^2=4).  
+Si quisiéramos más subredes, tendríamos que dar más bits de hosts.  
+Para verlo en una aplicación real de una red: Si tuviésemos una red /24 y quisiéramos 4 subredes, tendríamos que utilizar 2 bits adicionales del campo de host, justo después del bit 24, como parte del identificador de subred, quedándonos 4 subredes /26.
