@@ -2,7 +2,6 @@
 
 https://github.com/mdedifer/Simulacro-Parcial-2-Redes
 
-En la clase del viernes no hemos estado haciendo esto del simulacro. En cuanto lo haga (posiblemente sábado por la mañana) lo verás aquí.
 
 ## Parte 1: Capa de Red
 
@@ -40,6 +39,113 @@ Normalmente no se utiliza inundación pura cada vez que se envía un mensaje. So
 
 #### **a)**
 
+A través de la máscara de subred obtenermos el número de bits de red (fijos) (1s de la máscara).  
+255     = 11111111  
+255     = 11111111  
+248     = 11111000  
+0       = 00000000  
+Hay 21 bits de red, por lo que sería una subred /21: 172.29.152.0/21. 
+Tendrá 32-21=11 bits de host (variables). Esto indica que la red tendrá 2^11=2048 direcciones.
 
+Pasamos la dirección ip de la subred a binario e identificamos los 21 bits fijos:  
+172     = 10101100  
+29      = 00011101  
+152     = 10011|000  
+0       = 00000000
+
+La dirección de broadcast es la última dirección disponible de la subred, por lo que todos los bits de host tienen que estar puestos a 1:
+
+
+172     = 10101100 = 172  
+29      = 00011101 = 29  
+152     -> 10011|111 (+7)= 159  
+0       -> 11111111 = 255  
+
+Dirección de broadcast: 172.29.159.255 .
 
 #### **b)**
+
+A través del prefijo de subred /23 obtenermos que el número de bits de red (fijos) (1s) es 23.  
+255     = 11111111  
+255     = 11111111  
+254     = 11111110  
+0       = 00000000  
+Hay 23 bits de red, por lo que tendrá 32-23=9 bits de host (variables). Esto indica que la red tendrá 2^9=512 direcciones.
+
+Pasamos la dirección ip de la subred a binario e identificamos los 23 bits fijos:  
+172  → 10101100  
+18   → 00010010  
+26   → 0001101|0  
+0    → 00000000
+
+La dirección de broadcast es la última dirección disponible de la subred, por lo que todos los bits de host tienen que estar puestos a 1:
+
+
+172  → 10101100  
+18   → 00010010  
+27   → 0001101|1  
+255    → 11111111 
+
+Dirección de broadcast: 172.18.27.255 .
+
+
+### 3. Última Dirección Válida y Rango de Hosts
+
+#### **a)**
+
+A través de la máscara de subred obtenermos el número de bits de red (fijos) (1s de la máscara).  
+255     = 11111111  
+255     = 11111111  
+255     = 11111111  
+192       = 11000000  
+Hay 26 bits de red, por lo que sería una subred /26: 172.30.67.192/26. 
+Tendrá 32-26=6 bits de host (variables). Esto indica que la red tendrá 2^6=64 direcciones.
+
+Pasamos la dirección ip de la subred a binario e identificamos los 26 bits fijos:  
+172     = 10101100  
+30      = 00011110  
+67      = 01000011  
+192     = 11|000000
+
+La última dirección válida es la penúltima dirección ya que la última dirección disponible es la dirección de broadcast. De esta manera, hay que poner todos los bits de host a 1 excepto el último:  
+172     = 10101100  
+30      = 00011110  
+67      = 01000011  
+254     = 11|111110  
+
+Última dirección válida: 172.30.67.254 .
+
+#### **b)**
+
+A través de la máscara de subred obtenermos el número de bits de red (fijos) (1s de la máscara).  
+255     = 11111111  
+255     = 11111111  
+252     = 11111100  
+0       = 00000000   
+Hay 22 bits de red, por lo que sería una subred /22. 
+Tendrá 32-22=10 bits de host (variables). Esto indica que la red tendrá 2^10=1024 direcciones.
+
+Pasamos la dirección ip a binario e identificamos los 22 bits fijos:  
+172     = 10101100  
+22      = 00010110  
+53      = 001101|01  
+199     = 11000111
+
+De aquí sacamos que la subred es:  
+172     = 10101100  
+22      = 00010110  
+52      = 001101|00  
+0       = 00000000
+
+Subred: 172.22.52.0/22, siendo:  
+- Dirección de red: 172.22.52.0  
+- Dirección de broadcast: 172.22.55.255  
+Y lo que nos piden en el problema:  
+- Primera dirección válida: 172.22.52.1  
+- Última dirección válida: 172.22.55.254  
+
+
+### 4. Capacidad y Segmentación de Subredes
+
+
+ 
